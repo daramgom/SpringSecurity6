@@ -1,0 +1,84 @@
+ 시큐리티.txt
+
+ 스프링 시큐리티 : 서블릿의 필터, 인터셉터(스프링의 필터)를 사용한 처리방식
+ 				  (서블릿의 자원) (스프링의 자원-스프링 빈에 접근가능)
+ 				  
+ 	Servlet Context [
+ 			{필터} {필터} {필터} {필터} 
+ 		Spring [
+ 			
+ 			{인터셉터} {인터셉터} {인터셉터} 
+ 			SecurityContext []
+ 			
+ 			Web ApplicationContext []
+ 			(Servlet-context.xml)
+ 			
+ 			Root Context []
+ 			(root-context.xml)
+ 			
+ 		]
+ 	
+ 	]
+ 
+ * 시큐리티 라이브러리 (web/core/config는 항상 셋 다 같은 버전)
+ 
+ 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+
+	
+ p.615
+ 
+ 인증(Authentication) : 자신을 증명하는 작업
+ 인가(권한부여)(Authorization) : 남이 나에게 부여해줌 
+ 
+ [일반 프로젝트]
+ 회원의 아이디(userid)
+ 회원의 이름(username)
+ 
+ User (사용자)
+ 
+ [시큐리티 프로젝트]
+ 회원의 아이디(userid) => (username)
+ 회원의 이름(username) => (name)
+ 
+ User (인증정보, 권한을 가지는 객체)
+
+ 
+ p.673
+ hasRole('') : 권한이 있으면 true, 없으면 false
+ permitAll : 모든 사용자에게 허용
+ 
+ 
+ * CSRF(Cross-Site Request Forgery) 공격
+ 	예시 : <img src="www.itwillbs.co.kr/update?id=admin&grade=admin">
+ 		=> 사이트간 위조 방지를 위해서 토큰값을 가져다가 사용
+ 			서버에서 생성된 임의의 토큰값을 비교
+ 
+ 
+ 
+ 
