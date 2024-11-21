@@ -62,7 +62,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		// 비회원 사용자
 		logger.info(" ( •̀ ω •́ )✧ 비회원 접근 ");
 		res.sendRedirect("/sample/all");
-	}
+	}// on ... success
 	
 	
 	

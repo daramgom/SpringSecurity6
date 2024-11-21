@@ -80,5 +80,53 @@
  			서버에서 생성된 임의의 토큰값을 비교
  
  
+ * 데이터베이스 - 스프링 시큐리티 연결
+ 
+ https://github.com/spring-projects/spring-security/
+ blob/main/core/src/main/java/org/springframework/
+ security/provisioning/JdbcUserDetailsManager.java
+ 
+ 
+ insert into users (username, password, enabled) values (?,?,?);
+ insert into authorities (username, authority) values (?,?);
+ 
+ 
+ CREATE TABLE `springdb`.`users` (
+  `username` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(50) NOT NULL,
+  `enabled` INT NULL DEFAULT 1,
+  PRIMARY KEY (`username`));
+  
+  
+ ALTER TABLE `springdb`.`authorities` 
+ ADD INDEX `fk_authorities_users_idx` (`username` ASC) VISIBLE,
+ DROP PRIMARY KEY;
+ ;
+ ALTER TABLE `springdb`.`authorities` 
+ ADD CONSTRAINT `fk_authorities_users`
+ FOREIGN KEY (`username`)
+ REFERENCES `springdb`.`users` (`username`)
+ ON DELETE NO ACTION
+ ON UPDATE NO ACTION;
+  
+ 
+ insert into users (username,password)
+ values ("user00","1234"),
+ ("member00","1234"),
+ ("admin00","1234");
+
+ select *
+ from users;
+
+ insert into authorities
+ values ('user00','ROLE_USER'),
+ ('member00','ROLE_MANAGER'),
+ ('admin00','ROLE_ADMIN'),
+ ('admin00','ROLE_MANAGER');
+
+ select *
+ from authorities;
+ 
+ 
  
  
